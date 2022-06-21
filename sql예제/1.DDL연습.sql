@@ -24,7 +24,7 @@ CREATE TABLE board (
 ALTER TABLE board
 MODIFY (bno NUMBER(10));
 
--- pk 설정 
+-- pk 설정 -- 외부에서 걸때 
 ALTER TABLE board 
 ADD CONSTRAINT pk_board_bno
 PRIMARY KEY (bno);
@@ -63,7 +63,7 @@ CREATE TABLE REPLY (
     , r_content VARCHAR2(400)
     , r_writer VARCHAR2(40) NOT NULL 
     , bno NUMBER(10)
-    , CONSTRAINT pk_reply_rno PRIMARY KEY (rno) --pk 설정 
+    , CONSTRAINT pk_reply_rno PRIMARY KEY (rno) --pk 설정-- 크리에이트 할때 거는방법  
 );
 
 -- 외래키 설정 (FOREIGN KEY) : 테이블 간의 관계 제약 설정 
@@ -81,7 +81,7 @@ ADD (r_reg_date DATE DEFAULT SYSDATE);
 SELECT
     * FROM reply ;
 
--- 컬럼 제거 
+-- 컬럼 
 ALTER TABLE board 
 DROP COLUMN view_count;
 
