@@ -255,9 +255,9 @@ FROM tb_sal;
 -- expr1: Null을 가질 수 있는 값이나 표현식
 -- expr2: expr1이 Null일 경우 대체할 값
 SELECT 
-    emp_no,
-    emp_nm,
-    NVL(direct_manager_emp_no, '최상위관리자') AS 관리자
+    emp_no
+    ,emp_nm
+    ,NVL(direct_manager_emp_no, '최상위관리자') AS 관리자
 FROM tb_emp;
 
 SELECT 
@@ -273,15 +273,19 @@ WHERE emp_nm = '김회장'
 
 
 SELECT 
-    NVL(MAX(emp_nm), '존재안함') AS emp_nm
+      emp_nm
+    --MAX(emp_nm)-- 없는애를 null 로 만듦
+    --emp_nm -- 없으면 아무것도 안뜸 // 결과 0건 
+    --NVL(MAX(emp_nm), '존재안함') AS emp_nm
 FROM tb_emp
-WHERE emp_nm = '박찬호';
+WHERE emp_nm = '이경오';
 
 -- NVL2(expr1, expr2, expr3)
 -- expr1의 값이 Null이 아니면 expr2를 반환, Null이면 expr3를 반환
 SELECT 
     emp_nm,
     NVL2(direct_manager_emp_no, '일반사원', '회장님') AS 직위
+    --김회장 말고는 다 일반사원이라고 나옴 
 FROM tb_emp;
 
 -- NULLIF(expr1, expr2)
@@ -291,7 +295,13 @@ SELECT
 FROM dual;
 
 SELECT
-    NULLIF('박찬호', '박지성')
+    NULLIF('tb_emp', 'tb_emp')
+FROM dual;
+-- 의도는 테이블끼리 비교할려고 했지만 테이블비교는 안되고 
+-- 테이블 비교는 안됨 
+-- 이 결과는 문자가 같아서 문자로 비교가 되는것임 
+SELECT
+    NULLIF('앞에가나옴', '박지성')
 FROM dual;
 
 -- COALESCE(expr1, ...)
